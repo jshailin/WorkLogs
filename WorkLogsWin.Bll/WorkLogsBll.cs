@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Text;
 using System.Windows.Forms;
 using WorkLogsWin.Common;
 using WorkLogsWin.Dal;
@@ -38,7 +39,28 @@ namespace WorkLogsWin.Bll
 	        workLogs.CreateTime = DateTime.Now;
 	        return dal.Insert(workLogs)>0;
 	    }
-	    
+        /// <summary>
+        /// 查询日志内容
+        /// </summary>
+        /// <param name="strCondition">条件字符</param>
+        /// <param name="byDate">1--日期查询，0--按订单查询</param>
+        /// <returns></returns>
+	    public string GetLogs(string strCondition, bool byDate)
+        {
+            //定义键值对，存放查询条件
+	        Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add(byDate ? "CreateTime" : "Pnumber", strCondition);
+            DataTable dt = dal.GetDataTable(dic);
+            if (dt.Rows.Count <= 0) return "未找到";
+            StringBuilder sb=new StringBuilder();
+            foreach (DataRow row  in dt.Rows)
+            {
+                sb.AppendLine(Convert.ToDateTime(row["CreateTime"]).ToString("yyyy年MM月dd日") + ":   " + row["Pnumber"].ToString() + "-" + row["Item"].ToString());
+                sb.AppendLine(row["LogDesc"].ToString());
+                sb.AppendLine();
+            }
+            return sb.ToString();
+        }
 
 	    #endregion
 

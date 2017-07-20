@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using MySql.Data.MySqlClient;
@@ -38,7 +39,31 @@ namespace WorkLogsWin.Dal
             //执行插入操作
             return MySQLHelper.ExecuteNonQuery(sql, ps);
         }
-	    
+        /// <summary>
+        /// 查询到数据表
+        /// </summary>
+        /// <param name="?"></param>
+        /// <returns></returns>
+	    public DataTable GetDataTable(Dictionary<string, string> dic)
+	    {
+	        //构造查询sql语句
+	        string sql = "SELECT ID, Pnumber, Item, Pname, UID, CreateTime, LogDesc FROM WorkLogs WHERE DelFlag=0 ";
+	        //拼接查询条件
+	        List<MySqlParameter> listP=new List<MySqlParameter>();
+	        if (dic.Count>0)
+	        {
+	            foreach (var pair in dic)
+	            {
+	                //sql+=" AND "+pair.Key+" LIKE '%"+pair.Value+"%'";
+	                //写成参数化，防注入
+	                sql += " AND " + pair.Key + " LIKE @" + pair.Key ;
+	                listP.Add(new MySqlParameter("@"+pair.Key,"%"+pair.Value+"%"));
+	            }
+	        }
+	        //执行查询
+	        return  MySQLHelper.GetDataTable(sql,listP.ToArray());
+	    }
+
 
 	    #endregion
 

@@ -142,7 +142,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmAddLog";
-            this.Text = "写日志";
+            this.Text = "编辑日志";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddLog_FormClosing);
             this.Load += new System.EventHandler(this.FrmAddLog_Load);
             this.ResumeLayout(false);
