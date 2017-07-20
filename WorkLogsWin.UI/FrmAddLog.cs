@@ -44,7 +44,23 @@ namespace WorkLogsWin.UI
         }
         private void txtPNumber_Leave(object sender, EventArgs e)
         {
-            txtPName.Text = projectBll.GetPNmameByPnumber(txtPNumber.Text);
+            txtPName.Text = projectBll.GetPNmameByPnumber(txtPNumber.Text,txtItem.Text);
+        }
+
+        private void btnAddLog_Click(object sender, EventArgs e)
+        {
+            if (workLogsBll.Add(txtPNumber.Text, txtItem.Text, txtPName.Text, txtLog.Text))
+                this.Close();
+            else
+                MessageBox.Show("提交失败，请稍后再试");
+        }
+
+        private void txtItem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar!='\b'&&!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
     }

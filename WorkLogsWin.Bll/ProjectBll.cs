@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using WorkLogsWin.Common;
 using WorkLogsWin.Dal;
@@ -21,11 +22,17 @@ namespace WorkLogsWin.Bll
 	    /// 根据生产编号查询客户名称
 	    /// </summary>
 	    /// <param name="pNumber">生产号</param>
+	    /// <param name="strItem"></param>
 	    /// <returns>项目名称</returns>
-	    public string GetPNmameByPnumber(string pNumber)
+	    public string GetPNmameByPnumber(string pNumber,string strItem)
 	    {
-	        string pNmame = dal.GetPNmameByPnumber(pNumber);
+	        string pNmame = dal.GetPNmameByPnumber(pNumber,Convert.ToInt32(strItem));
             return pNmame ?? "无此项目";
+	    }
+
+	    public bool Add(Project project)
+	    {
+	        return dal.Insert(project) > 0;
 	    }
 
 	    #endregion

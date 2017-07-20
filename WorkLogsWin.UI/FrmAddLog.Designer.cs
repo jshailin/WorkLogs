@@ -34,6 +34,9 @@
             this.txtPName = new System.Windows.Forms.TextBox();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.lblCreateDate = new System.Windows.Forms.Label();
+            this.btnAddLog = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtItem = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -75,6 +78,7 @@
             this.txtLog.Location = new System.Drawing.Point(12, 70);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtLog.Size = new System.Drawing.Size(524, 329);
             this.txtLog.TabIndex = 2;
             // 
@@ -89,16 +93,48 @@
             this.lblCreateDate.Text = "label1";
             this.lblCreateDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // btnAddLog
+            // 
+            this.btnAddLog.Location = new System.Drawing.Point(461, 405);
+            this.btnAddLog.Name = "btnAddLog";
+            this.btnAddLog.Size = new System.Drawing.Size(75, 23);
+            this.btnAddLog.TabIndex = 3;
+            this.btnAddLog.Text = "保存";
+            this.btnAddLog.UseVisualStyleBackColor = true;
+            this.btnAddLog.Click += new System.EventHandler(this.btnAddLog_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(320, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(56, 16);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "品目：";
+            // 
+            // txtItem
+            // 
+            this.txtItem.Location = new System.Drawing.Point(369, 6);
+            this.txtItem.Name = "txtItem";
+            this.txtItem.Size = new System.Drawing.Size(41, 26);
+            this.txtItem.TabIndex = 1;
+            this.txtItem.Text = "1";
+            this.txtItem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItem_KeyPress);
+            this.txtItem.Leave += new System.EventHandler(this.txtPNumber_Leave);
+            // 
             // FrmAddLog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 411);
+            this.ClientSize = new System.Drawing.Size(548, 434);
+            this.Controls.Add(this.btnAddLog);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.txtPName);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtItem);
             this.Controls.Add(this.txtPNumber);
             this.Controls.Add(this.lblCreateDate);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -106,7 +142,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmAddLog";
-            this.Text = "frmAddLog";
+            this.Text = "写日志";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddLog_FormClosing);
             this.Load += new System.EventHandler(this.FrmAddLog_Load);
             this.ResumeLayout(false);
@@ -122,5 +158,8 @@
         private System.Windows.Forms.TextBox txtPName;
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.Label lblCreateDate;
+        private System.Windows.Forms.Button btnAddLog;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtItem;
     }
 }

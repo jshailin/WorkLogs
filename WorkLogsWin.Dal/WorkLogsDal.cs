@@ -16,7 +16,28 @@ namespace WorkLogsWin.Dal
 		{}
 
 	    #region 我的方法
-
+        /// <summary>
+        /// 插入一条记录
+        /// </summary>
+        /// <param name="workLog"></param>
+        /// <returns></returns>
+        public int Insert(WorkLogs workLog)
+        {
+            //构造insert语句
+            string sql = "INSERT INTO WorkLogs (Pnumber, Item, Pname, UID, CreateTime, LogDesc, DelFlag) VALUES(@Pnumber,@Item,@Pname,@UID,@CreateTime,@LogDesc,0)";
+            //构造sql语句的参数
+            MySqlParameter[] ps = //使用数组初始化器
+	        {
+	            new MySqlParameter("@Pnumber",workLog.Pnumber),
+	            new MySqlParameter("@Item",workLog.Item),
+	            new MySqlParameter("@Pname",workLog.Pname),
+	            new MySqlParameter("@UID",workLog.UID),
+	            new MySqlParameter("@CreateTime",workLog.CreateTime),
+	            new MySqlParameter("@LogDesc",workLog.LogDesc)
+	        };
+            //执行插入操作
+            return MySQLHelper.ExecuteNonQuery(sql, ps);
+        }
 	    
 
 	    #endregion

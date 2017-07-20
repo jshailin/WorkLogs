@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using WorkLogsWin.Common;
 using WorkLogsWin.Dal;
 using WorkLogsWin.Model;
@@ -18,6 +19,25 @@ namespace WorkLogsWin.Bll
 
 	    #region 我的方法
 
+	    public bool Add(string strPnumber,string strItem,string strPname,string strLog)
+	    {
+            WorkLogs workLogs=new WorkLogs();
+	        if (strLog.Length==0)
+	        {
+	            MessageBox.Show("请输入日志内容");
+                return false;
+	        }
+            if (strPname != "无此项目")
+            {
+                workLogs.Pnumber = strPnumber;
+                workLogs.Item = Convert.ToInt32(strItem);
+                workLogs.Pname = strPname;
+            }
+	        workLogs.LogDesc = strLog;
+	        workLogs.UID = 1;
+	        workLogs.CreateTime = DateTime.Now;
+	        return dal.Insert(workLogs)>0;
+	    }
 	    
 
 	    #endregion
