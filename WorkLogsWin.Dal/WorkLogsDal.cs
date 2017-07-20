@@ -63,8 +63,30 @@ namespace WorkLogsWin.Dal
 	        //执行查询
 	        return  MySQLHelper.GetDataTable(sql,listP.ToArray());
 	    }
-
-
+        /// <summary>
+        /// 查询ID
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <returns></returns>条件
+	    public int GetId(Dictionary<string, string> dic)
+	    {
+            //构造查询sql语句
+            string sql = "SELECT ID FROM WorkLogs WHERE DelFlag=0 ";
+            //拼接查询条件
+            List<MySqlParameter> listP = new List<MySqlParameter>();
+            if (dic.Count > 0)
+            {
+                foreach (var pair in dic)
+                {
+                    //sql+=" AND "+pair.Key+" LIKE '%"+pair.Value+"%'";
+                    //写成参数化，防注入
+                    sql += " AND " + pair.Key + " LIKE @" + pair.Key;
+                    listP.Add(new MySqlParameter("@" + pair.Key, "%" + pair.Value + "%"));
+                }
+            }
+            //执行查询
+            return (int)(MySQLHelper.ExecuteScalar(sql, listP.ToArray())??"-1");
+	    }
 	    #endregion
 
         #region  BasicMethod

@@ -20,33 +20,18 @@ namespace WorkLogsWin.Bll
 
 	    #region 我的方法
 
-	    public bool Add(string strPnumber,string strItem,string strPname,string strLog)
+	    public bool Add(WorkLogs workLogs)
 	    {
-            WorkLogs workLogs=new WorkLogs();
-	        if (string.IsNullOrWhiteSpace(strLog))
-	        {
-	            MessageBox.Show("请输入日志内容");
-                return false;
-	        }
-
-	        #region 其它日志
-
-	        workLogs.Pnumber = "888888";
-	        workLogs.Item = 8;
-	        workLogs.Pname = "与项目无关";
-
-	        #endregion
-            if (strPname != "无此项目"&&!string.IsNullOrEmpty(strPname))
-            {
-                workLogs.Pnumber = strPnumber;
-                workLogs.Item = Convert.ToInt32(strItem);
-                workLogs.Pname = strPname;
-            }
-	        workLogs.LogDesc = strLog;
-	        workLogs.UID = 1;
-	        workLogs.CreateTime = DateTime.Now;
-	        return dal.Insert(workLogs)>0;
+	        return dal.Insert(workLogs) > 0;
 	    }
+
+	    public int GetId(Dictionary<string, string> dic)
+	    {
+	        return dal.GetId(dic);
+	    }
+
+
+
         /// <summary>
         /// 查询日志内容
         /// </summary>
@@ -69,6 +54,7 @@ namespace WorkLogsWin.Bll
             }
             return sb.ToString();
         }
+        
 
 	    #endregion
 

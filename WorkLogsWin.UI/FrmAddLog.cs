@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkLogsWin.Bll;
+using WorkLogsWin.Model;
 
 namespace WorkLogsWin.UI
 {
@@ -49,7 +50,7 @@ namespace WorkLogsWin.UI
 
         private void btnAddLog_Click(object sender, EventArgs e)
         {
-            if (workLogsBll.Add(txtPNumber.Text, txtItem.Text, txtPName.Text, txtLog.Text))
+            if (Add(txtPNumber.Text, txtItem.Text, txtPName.Text, txtLog.Text))
                 this.Close();
             else
                 MessageBox.Show("提交失败，请稍后再试");
@@ -63,5 +64,64 @@ namespace WorkLogsWin.UI
             }
         }
 
+        /// <summary>
+        /// 添加日志
+        /// </summary>
+        /// <param name="strPnumber"></param>
+        /// <param name="strItem"></param>
+        /// <param name="strPname"></param>
+        /// <param name="strLog"></param>
+        /// <returns></returns>
+        private bool Add(string strPnumber, string strItem, string strPname, string strLog)
+        {
+            
+            if (string.IsNullOrWhiteSpace(strLog))
+            {
+                MessageBox.Show("请输入日志内容");
+                return false;
+            }
+            WorkLogs workLogs = new WorkLogs();
+
+            #region 其它日志
+            workLogs.Pnumber = "888888";
+            workLogs.Item = 8;
+            workLogs.Pname = "与项目无关";
+            #endregion
+
+            if (strPname != "无此项目" && !string.IsNullOrEmpty(strPname))
+            {
+                workLogs.Pnumber = strPnumber;
+                workLogs.Item = Convert.ToInt32(strItem);
+                workLogs.Pname = strPname;
+            }
+            workLogs.LogDesc = strLog;
+            workLogs.UID = 1;
+            workLogs.CreateTime = DateTime.Now;
+            if (GetIdByDate_Pnum_Item(workLogs.CreateTime.ToString("yyyy-MM-dd"),workLogs.Pnumber,workLogs.Item.ToString())>0)
+            {
+                btnAddLog.Text = "更新";
+                txtLog.Text = "加上"; //???????
+                MessageBox.Show("已存在此日志，请修改更新");
+                return false;
+            }
+            return workLogsBll.Add(workLogs);
+        }
+
+        /// <summary>
+        /// 获取ID，根据日期和项目号及品目
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="pNum"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public int GetIdByDate_Pnum_Item(string date, string pNum, string item)
+        {
+            //定义键值对，存放查询条件
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("CreateTime", date);
+            dic.Add("Pnumber", pNum);
+            dic.Add("Item", item);
+            return workLogsBll.GetId(dic);
+        }
     }
 }
