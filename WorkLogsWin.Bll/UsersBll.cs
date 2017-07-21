@@ -18,6 +18,15 @@ namespace WorkLogsWin.Bll
 
 	    #region 我的方法
 
+	    /// <summary>
+	    /// 根据名字查询用户信息
+	    /// </summary>
+	    /// <param name="name"></param>
+	    /// <returns></returns>
+	    public Users GetByName(string name)
+	    {
+	        return dal.GetByName(name);
+	    }
 	    
 
 	    #endregion

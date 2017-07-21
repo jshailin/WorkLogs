@@ -15,6 +15,7 @@ namespace WorkLogsWin.UI
     public partial class FrmMain : Form
     {
         WorkLogsBll workLogsBll=new WorkLogsBll();
+        private Users _logUser = null;
         public FrmMain()
         {
             InitializeComponent();
@@ -40,6 +41,8 @@ namespace WorkLogsWin.UI
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            _logUser = (Users) this.Tag;
+            Text += _logUser.UName;
             LoadLogs();
         }
 
@@ -69,6 +72,11 @@ namespace WorkLogsWin.UI
                 sb.AppendLine();
             }
             return sb.ToString();
+        }
+
+        private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
 
     }

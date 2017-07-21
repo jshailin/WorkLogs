@@ -17,6 +17,34 @@ namespace WorkLogsWin.Dal
 
 	    #region 我的方法
 
+        /// <summary>
+        /// 根据名字查询用户信息
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public Users GetByName(string name)
+        {
+            //定义一个对象
+            Users user = null;
+            //构造要查询的sql语句
+            string sql = "SELECT ID, UName, UPwd FROM Users WHERE DelFlag=0 AND UName=@UName";
+            MySqlParameter p = new MySqlParameter("@UName", name);
+            //使用helper进行查询,得到结果
+            DataTable dt = MySQLHelper.GetDataTable(sql, p);
+            //判断是否查找到了
+            if (dt.Rows.Count > 0)
+            {
+                //用户名是存在的
+                user = new Users()
+                {
+                    ID = int.Parse(dt.Rows[0]["ID"].ToString()),
+                    UName = name,
+                    UPwd = dt.Rows[0]["UPwd"].ToString(),
+                    
+                };
+            }
+            return user;
+        }
 	    
 
 	    #endregion
