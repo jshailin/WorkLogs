@@ -39,12 +39,36 @@ namespace WorkLogsWin.Dal
             //执行插入操作
             return MySQLHelper.ExecuteNonQuery(sql, ps);
         }
+
+	    /// <summary>
+	    /// 修改数据
+	    /// </summary>
+	    /// <param name="workLog"></param>
+	    /// <returns></returns>
+	    public int Update(WorkLogs workLog)
+        {
+            //构造sql语句及参数
+            string sql = "UPDATE WorkLogs SET Pnumber=@Pnumber, Item=@Item, Pname=@Pname, UID=@UID, CreateTime=@CreateTime, LogDesc=@LogDesc, DelFlag=0 WHERE ID= @ID";
+            MySqlParameter[] ps =
+            {
+                new MySqlParameter("@Pnumber",workLog.Pnumber),
+	            new MySqlParameter("@Item",workLog.Item),
+	            new MySqlParameter("@Pname",workLog.Pname),
+	            new MySqlParameter("@UID",workLog.UID),
+	            new MySqlParameter("@CreateTime",workLog.CreateTime),
+	            new MySqlParameter("@LogDesc",workLog.LogDesc) ,
+                new MySqlParameter("@ID",workLog.ID), 
+            };
+            //执行并返回
+            return MySQLHelper.ExecuteNonQuery(sql, ps);
+        }
+
         /// <summary>
-        /// 查询到数据表
+        /// 查询到列表
         /// </summary>
         /// <param name="?"></param>
         /// <returns></returns>
-	    public DataTable GetDataTable(Dictionary<string, string> dic)
+	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
 	        //构造查询sql语句
 	        string sql = "SELECT ID, Pnumber, Item, Pname, UID, CreateTime, LogDesc FROM WorkLogs WHERE DelFlag=0 ";
@@ -61,32 +85,25 @@ namespace WorkLogsWin.Dal
 	            }
 	        }
 	        //执行查询
-	        return  MySQLHelper.GetDataTable(sql,listP.ToArray());
-	    }
-        /// <summary>
-        /// 查询ID
-        /// </summary>
-        /// <param name="dic"></param>
-        /// <returns></returns>条件
-	    public int GetId(Dictionary<string, string> dic)
-	    {
-            //构造查询sql语句
-            string sql = "SELECT ID FROM WorkLogs WHERE DelFlag=0 ";
-            //拼接查询条件
-            List<MySqlParameter> listP = new List<MySqlParameter>();
-            if (dic.Count > 0)
+	        DataTable dt=MySQLHelper.GetDataTable(sql,listP.ToArray());
+            //定义list，完成转存
+            List<WorkLogs> list=new List<WorkLogs>();
+            foreach (DataRow row in dt.Rows)
             {
-                foreach (var pair in dic)
+                list.Add(new WorkLogs()
                 {
-                    //sql+=" AND "+pair.Key+" LIKE '%"+pair.Value+"%'";
-                    //写成参数化，防注入
-                    sql += " AND " + pair.Key + " LIKE @" + pair.Key;
-                    listP.Add(new MySqlParameter("@" + pair.Key, "%" + pair.Value + "%"));
-                }
+                    ID=Convert.ToInt32(row["ID"]),
+                    Pnumber=row["Pnumber"].ToString(),
+                    Item=Convert.ToInt32(row["Item"]),
+                    Pname=row["Pname"].ToString(),
+                    UID=Convert.ToInt32(row["UID"]),
+                    CreateTime = Convert.ToDateTime(row["CreateTime"]),
+                    LogDesc=row["LogDesc"].ToString()
+                });
             }
-            //执行查询
-            return (int)(MySQLHelper.ExecuteScalar(sql, listP.ToArray())??"-1");
+            return list;
 	    }
+
 	    #endregion
 
         #region  BasicMethod

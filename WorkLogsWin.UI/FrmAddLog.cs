@@ -18,6 +18,8 @@ namespace WorkLogsWin.UI
         {
             InitializeComponent();
         }
+
+        public event Action RefreshMain;
         //实现窗体的单例
         private static FrmAddLog _frm;
         public static FrmAddLog Create()
@@ -51,7 +53,10 @@ namespace WorkLogsWin.UI
         private void btnAddLog_Click(object sender, EventArgs e)
         {
             if (Add(txtPNumber.Text, txtItem.Text, txtPName.Text, txtLog.Text))
+            {
+                RefreshMain();
                 this.Close();
+            }
             else
                 MessageBox.Show("提交失败，请稍后再试");
         }
@@ -74,7 +79,6 @@ namespace WorkLogsWin.UI
         /// <returns></returns>
         private bool Add(string strPnumber, string strItem, string strPname, string strLog)
         {
-            
             if (string.IsNullOrWhiteSpace(strLog))
             {
                 MessageBox.Show("请输入日志内容");
@@ -83,9 +87,11 @@ namespace WorkLogsWin.UI
             WorkLogs workLogs = new WorkLogs();
 
             #region 其它日志
+
             workLogs.Pnumber = "888888";
             workLogs.Item = 8;
             workLogs.Pname = "与项目无关";
+
             #endregion
 
             if (strPname != "无此项目" && !string.IsNullOrEmpty(strPname))
@@ -97,14 +103,25 @@ namespace WorkLogsWin.UI
             workLogs.LogDesc = strLog;
             workLogs.UID = 1;
             workLogs.CreateTime = DateTime.Now;
-            if (GetIdByDate_Pnum_Item(workLogs.CreateTime.ToString("yyyy-MM-dd"),workLogs.Pnumber,workLogs.Item.ToString())>0)
+            WorkLogs exixsWorkLog = GetWorkLogByDate_Pnum_Item(workLogs.CreateTime.ToString("yyyy-MM-dd"),
+                workLogs.Pnumber, workLogs.Item.ToString());
+            if (exixsWorkLog != null)
             {
-                btnAddLog.Text = "更新";
-                txtLog.Text = "加上"; //???????
-                MessageBox.Show("已存在此日志，请修改更新");
-                return false;
+                if (btnAddLog.Text != "更新")
+                {
+                    btnAddLog.Text = "更新";
+                    txtLog.Text = exixsWorkLog.LogDesc + Environment.NewLine + strLog;
+                    MessageBox.Show("已存在此日志，请修改更新");
+                    return false;
+                }
+                else
+                {
+                    workLogs.ID = exixsWorkLog.ID;
+                    return workLogsBll.Edit(workLogs);
+                }
             }
-            return workLogsBll.Add(workLogs);
+            else
+                return workLogsBll.Add(workLogs);
         }
 
         /// <summary>
@@ -114,14 +131,14 @@ namespace WorkLogsWin.UI
         /// <param name="pNum"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        public int GetIdByDate_Pnum_Item(string date, string pNum, string item)
+        public WorkLogs GetWorkLogByDate_Pnum_Item(string date, string pNum, string item)
         {
             //定义键值对，存放查询条件
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("CreateTime", date);
             dic.Add("Pnumber", pNum);
             dic.Add("Item", item);
-            return workLogsBll.GetId(dic);
+            return workLogsBll.GetList(dic).Count>0?workLogsBll.GetList(dic)[0]:null;
         }
     }
 }

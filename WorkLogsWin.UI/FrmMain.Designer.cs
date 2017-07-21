@@ -126,7 +126,6 @@ namespace WorkLogsWin.UI
             this.MainMenuStrip = this.mnuMain;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FrmMain";
             this.Text = "工作日记";
             this.Load += new System.EventHandler(this.FrmMain_Load);
