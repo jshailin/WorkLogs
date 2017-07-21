@@ -25,6 +25,7 @@ namespace WorkLogsWin.UI
         {
             FrmAddLog frmAddLog=FrmAddLog.Create();
             frmAddLog.RefreshMain += LoadLogs;
+            frmAddLog.Tag = _logUser.ID;
             frmAddLog.Show();
             frmAddLog.Focus();
         }
@@ -62,6 +63,7 @@ namespace WorkLogsWin.UI
             //定义键值对，存放查询条件
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add(byDate ? "CreateTime" : "Pnumber", strCondition);
+            dic.Add("UID",_logUser.ID.ToString());
             List<WorkLogs> list = workLogsBll.GetList(dic);
             if (list.Count <= 0) return "未找到";
             StringBuilder sb = new StringBuilder();

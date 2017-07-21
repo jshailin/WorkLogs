@@ -101,7 +101,7 @@ namespace WorkLogsWin.UI
                 workLogs.Pname = strPname;
             }
             workLogs.LogDesc = strLog;
-            workLogs.UID = 1;
+            workLogs.UID = (int)this.Tag;
             workLogs.CreateTime = DateTime.Now;
             WorkLogs exixsWorkLog = GetWorkLogByDate_Pnum_Item(workLogs.CreateTime.ToString("yyyy-MM-dd"),
                 workLogs.Pnumber, workLogs.Item.ToString());
@@ -138,6 +138,7 @@ namespace WorkLogsWin.UI
             dic.Add("CreateTime", date);
             dic.Add("Pnumber", pNum);
             dic.Add("Item", item);
+            dic.Add("UID",((int)this.Tag).ToString());
             return workLogsBll.GetList(dic).Count>0?workLogsBll.GetList(dic)[0]:null;
         }
     }

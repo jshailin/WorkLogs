@@ -98,7 +98,7 @@
             // 
             this.btnAddLog.Location = new System.Drawing.Point(461, 405);
             this.btnAddLog.Name = "btnAddLog";
-            this.btnAddLog.Size = new System.Drawing.Size(75, 23);
+            this.btnAddLog.Size = new System.Drawing.Size(75, 28);
             this.btnAddLog.TabIndex = 3;
             this.btnAddLog.Text = "保存";
             this.btnAddLog.UseVisualStyleBackColor = true;
@@ -125,6 +125,7 @@
             // 
             // FrmAddLog
             // 
+            this.AcceptButton = this.btnAddLog;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(548, 434);
