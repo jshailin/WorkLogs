@@ -48,6 +48,8 @@
             // 
             // txtName
             // 
+            this.txtName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtName.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtName.Location = new System.Drawing.Point(100, 23);
             this.txtName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -104,6 +106,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmLogin";
             this.Text = "登陆窗口";
+            this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

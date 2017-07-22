@@ -14,7 +14,7 @@ namespace WorkLogsWin.UI
 {
     public partial class FrmMain : Form
     {
-        WorkLogsBll workLogsBll=new WorkLogsBll();
+        readonly WorkLogsBll _workLogsBll=new WorkLogsBll();
         private Users _logUser = null;
         public FrmMain()
         {
@@ -64,7 +64,7 @@ namespace WorkLogsWin.UI
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add(byDate ? "CreateTime" : "Pnumber", strCondition);
             dic.Add("UID",_logUser.ID.ToString());
-            List<WorkLogs> list = workLogsBll.GetList(dic);
+            List<WorkLogs> list = _workLogsBll.GetList(dic);
             if (list.Count <= 0) return "未找到";
             StringBuilder sb = new StringBuilder();
             foreach (WorkLogs workLog in list)

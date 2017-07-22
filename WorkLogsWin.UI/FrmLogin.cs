@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace WorkLogsWin.UI
             InitializeComponent();
         }
 
+        private string oldUsersFile = "user.dll";
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //获取用户输入的信息
@@ -36,6 +38,7 @@ namespace WorkLogsWin.UI
             {
                 if (user.UPwd.Equals(Md5Helper.EncryptString(pwd)))
                 {
+                    SaveUserName();
                     FrmMain main = new FrmMain();
                     main.Tag = user;    //将登陆者传递给主窗口
                     main.Show();
@@ -48,6 +51,49 @@ namespace WorkLogsWin.UI
                 }
             }
             
+        }
+
+        #region 登陆用户名的存取
+        /// <summary>
+        /// 将登陆过的用户名存入文件
+        /// </summary>
+        private void SaveUserName()
+        {
+            if (!txtName.AutoCompleteCustomSource.Contains(txtName.Text))
+            {
+                using (StreamWriter sw = new StreamWriter(oldUsersFile, true))
+                {
+                    sw.WriteLine(txtName.Text);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 读取登陆过的用户名
+        /// </summary>
+        private void ReadUserName()
+        {
+            if (File.Exists(oldUsersFile))
+            {
+                using (StreamReader sr = new StreamReader(oldUsersFile, true))
+                {
+                    string str = sr.ReadLine();
+                    while (str != null)
+                    {
+                        if (!txtName.AutoCompleteCustomSource.Contains(str))
+                        {
+                            txtName.AutoCompleteCustomSource.Add(str);
+                        }
+                        str = sr.ReadLine();
+                    }
+                }
+            }
+        } 
+        #endregion
+
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+            ReadUserName();
         }
     }
 }
