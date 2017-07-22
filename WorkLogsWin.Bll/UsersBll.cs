@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using WorkLogsWin.Common;
-using WorkLogsWin.Dal;
+﻿using WorkLogsWin.Dal;
 using WorkLogsWin.Model;
 
 namespace WorkLogsWin.Bll
@@ -13,8 +9,6 @@ namespace WorkLogsWin.Bll
 	public partial class UsersBll
 	{
 		private readonly UsersDal dal=new UsersDal();
-		public UsersBll()
-		{}
 
 	    #region 我的方法
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 using MySql.Data.MySqlClient;
 using WorkLogsWin.Model;
 
@@ -12,9 +10,6 @@ namespace WorkLogsWin.Dal
 	/// </summary>
 	public partial class UsersDal
 	{
-		public UsersDal()
-		{}
-
 	    #region 我的方法
 
         /// <summary>

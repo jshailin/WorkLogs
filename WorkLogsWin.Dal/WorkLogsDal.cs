@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
 using MySql.Data.MySqlClient;
 using WorkLogsWin.Model;
 
@@ -13,9 +12,6 @@ namespace WorkLogsWin.Dal
 	/// </summary>
 	public partial class WorkLogsDal
 	{
-		public WorkLogsDal()
-		{}
-
 	    #region 我的方法
         /// <summary>
         /// 插入一条记录
@@ -63,11 +59,12 @@ namespace WorkLogsWin.Dal
             return MySQLHelper.ExecuteNonQuery(sql, ps);
         }
 
-        /// <summary>
-        /// 查询到列表
-        /// </summary>
-        /// <param name="?"></param>
-        /// <returns></returns>
+	    /// <summary>
+	    /// 查询到列表
+	    /// </summary>
+	    /// <param name="?"></param>
+	    /// <param name="dic"></param>
+	    /// <returns></returns>
 	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
 	        //构造查询sql语句
@@ -389,7 +386,7 @@ namespace WorkLogsWin.Dal
         //    return MySQLHelper.Query(strSql.ToString());
         //}
 
-        ///*
+        
         ///// <summary>
         ///// 分页获取数据列表
         ///// </summary>

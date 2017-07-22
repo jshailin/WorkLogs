@@ -8,9 +8,7 @@ namespace WorkLogsWin.Model
 	[Serializable]
 	public partial class Users
 	{
-		public Users()
-		{}
-		#region Model
+	    #region Model
 		private int _id;
 		private string _uname;
 		private string _upwd;

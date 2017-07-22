@@ -1,7 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Text;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using WorkLogsWin.Model;
 
 //Please add references
@@ -12,9 +9,6 @@ namespace WorkLogsWin.Dal
 	/// </summary>
 	public partial class ProjectDal
 	{
-		public ProjectDal()
-		{}
-
 	    #region 我的方法
 
 	    /// <summary>

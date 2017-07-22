@@ -8,9 +8,7 @@ namespace WorkLogsWin.Model
 	[Serializable]
 	public partial class WorkLogs
 	{
-		public WorkLogs()
-		{}
-		#region Model
+	    #region Model
 		private int _id;
 		private string _pnumber;
 		private int? _item;

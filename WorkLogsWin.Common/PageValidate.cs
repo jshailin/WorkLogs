@@ -19,12 +19,7 @@ namespace WorkLogsWin.Common
 		private static Regex RegEmail = new Regex("^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$");//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样 
 		private static Regex RegCHZN = new Regex("[\u4e00-\u9fa5]");
 
-		public PageValidate()
-		{
-		}
-
-
-		#region 数字字符串检查		
+	    #region 数字字符串检查		
         public static bool IsPhone(string inputData)
         {
             Match m = RegPhone.Match(inputData);
@@ -116,8 +111,8 @@ namespace WorkLogsWin.Common
             {
                 if (!string.IsNullOrEmpty(str))
                 {
-                    DateTime.Parse(str);
-                    return true;
+                    DateTime dt;
+                    return DateTime.TryParse(str,out dt);
                 }
                 else
                 {
