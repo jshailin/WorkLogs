@@ -76,6 +76,7 @@
             // 
             // txtLog
             // 
+            this.txtLog.AcceptsReturn = true;
             this.txtLog.Location = new System.Drawing.Point(12, 70);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
