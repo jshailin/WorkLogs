@@ -21,7 +21,7 @@ namespace WorkLogsWin.UI
             FrmAddLog frmAddLog=FrmAddLog.Create();
             frmAddLog.RefreshMain += LoadLogs;
             frmAddLog.Tag = _logUser.ID;
-            frmAddLog.Show();
+            frmAddLog.ShowDialog();
             frmAddLog.Focus();
         }
 
@@ -74,6 +74,32 @@ namespace WorkLogsWin.UI
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void FrmMain_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState== FormWindowState.Minimized )
+            {
+                //隐藏任务栏区图标 
+                this.ShowInTaskbar = false;
+                //图标显示在托盘区
+                notifyIcon1.Visible = true;
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (WindowState== FormWindowState.Minimized)
+            {
+                //还原窗体显示 
+                WindowState = FormWindowState.Normal;
+                //激活窗体并给予它焦点 
+                this.Activate();
+                //任务栏区显示图标 
+                this.ShowInTaskbar = true;
+                //托盘区图标隐藏 
+                notifyIcon1.Visible = false;
+            }
         }
 
     }
