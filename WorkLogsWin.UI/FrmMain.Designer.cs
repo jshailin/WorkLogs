@@ -82,6 +82,7 @@ namespace WorkLogsWin.UI
             this.txtShow.Multiline = true;
             this.txtShow.Name = "txtShow";
             this.txtShow.ReadOnly = true;
+            this.txtShow.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtShow.Size = new System.Drawing.Size(595, 487);
             this.txtShow.TabIndex = 2;
             // 
