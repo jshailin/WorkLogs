@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingCollection.cs" />
     <Compile Include="Md5Helper.cs" />
     <Compile Include="PageValidate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

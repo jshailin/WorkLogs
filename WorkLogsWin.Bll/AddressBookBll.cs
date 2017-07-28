@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WorkLogsWin.Common;
 using WorkLogsWin.Dal;
 using WorkLogsWin.Model;
 
@@ -24,9 +25,9 @@ namespace WorkLogsWin.Bll
             return dal.Update(address) > 0;
         }
 
-        public List<AddressBook> GetList(Dictionary<string, string> dic)
+        public BindingCollection<AddressBook> GetList(Dictionary<string, string> dic)
         {
-            return dal.GetList(dic);
+            return new BindingCollection<AddressBook>(dal.GetList(dic));
         }
 
 

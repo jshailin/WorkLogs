@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WorkLogsWin.Common;
 using WorkLogsWin.Dal;
 using WorkLogsWin.Model;
 
@@ -23,9 +24,9 @@ namespace WorkLogsWin.Bll
 	        return dal.Update(workLog) > 0;
 	    }
 
-	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
+	    public BindingCollection<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
-	        return dal.GetList(dic);
+	        return new BindingCollection<WorkLogs>(dal.GetList(dic));
 	    } 
         
 
