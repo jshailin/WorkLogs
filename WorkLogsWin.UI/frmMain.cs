@@ -52,7 +52,7 @@ namespace WorkLogsWin.UI
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add(byDate ? "CreateTime" : "Pnumber", strCondition);
             dic.Add("UID",_logUser.ID.ToString());
-            List<WorkLogs> list = new List<WorkLogs>( _workLogsBll.GetList(dic));
+            List<WorkLogs> list = _workLogsBll.GetList(dic);
             if (list.Count <= 0) return "未找到";
             StringBuilder sb = new StringBuilder();
             foreach (WorkLogs workLog in list)

@@ -25,9 +25,9 @@ namespace WorkLogsWin.Bll
             return dal.Update(address) > 0;
         }
 
-        public BindingCollection<AddressBook> GetList(Dictionary<string, string> dic)
+        public List<AddressBook> GetList(Dictionary<string, string> dic)
         {
-            return new BindingCollection<AddressBook>(dal.GetList(dic));
+            return dal.GetList(dic);
         }
 
 

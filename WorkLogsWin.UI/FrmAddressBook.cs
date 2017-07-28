@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkLogsWin.Bll;
+using WorkLogsWin.Common;
 using WorkLogsWin.Model;
 
 namespace WorkLogsWin.UI
@@ -38,7 +39,7 @@ namespace WorkLogsWin.UI
 
 
             dgvList.AutoGenerateColumns = false;
-            dgvList.DataSource = _addressBookBll.GetList(dic);
+            dgvList.DataSource = new BindingCollection<AddressBook>(_addressBookBll.GetList(dic));
 
         }
 

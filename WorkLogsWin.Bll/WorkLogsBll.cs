@@ -24,9 +24,9 @@ namespace WorkLogsWin.Bll
 	        return dal.Update(workLog) > 0;
 	    }
 
-	    public BindingCollection<WorkLogs> GetList(Dictionary<string, string> dic)
+	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
-	        return new BindingCollection<WorkLogs>(dal.GetList(dic));
+	        return dal.GetList(dic);
 	    } 
         
 
