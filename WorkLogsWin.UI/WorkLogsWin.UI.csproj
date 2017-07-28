@@ -66,6 +66,12 @@
     <Compile Include="FrmAddLog.Designer.cs">
       <DependentUpon>FrmAddLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAddressBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddressBook.Designer.cs">
+      <DependentUpon>FrmAddressBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +88,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmAddLog.resx">
       <DependentUpon>FrmAddLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAddressBook.resx">
+      <DependentUpon>FrmAddressBook.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>

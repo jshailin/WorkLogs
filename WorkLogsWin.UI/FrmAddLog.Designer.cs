@@ -72,7 +72,8 @@
             this.txtPName.Name = "txtPName";
             this.txtPName.ReadOnly = true;
             this.txtPName.Size = new System.Drawing.Size(445, 26);
-            this.txtPName.TabIndex = 1;
+            this.txtPName.TabIndex = 99;
+            this.txtPName.TabStop = false;
             // 
             // txtLog
             // 
@@ -82,7 +83,7 @@
             this.txtLog.Name = "txtLog";
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtLog.Size = new System.Drawing.Size(524, 329);
-            this.txtLog.TabIndex = 2;
+            this.txtLog.TabIndex = 3;
             // 
             // lblCreateDate
             // 
@@ -100,7 +101,7 @@
             this.btnAddLog.Location = new System.Drawing.Point(461, 405);
             this.btnAddLog.Name = "btnAddLog";
             this.btnAddLog.Size = new System.Drawing.Size(75, 28);
-            this.btnAddLog.TabIndex = 3;
+            this.btnAddLog.TabIndex = 4;
             this.btnAddLog.Text = "保存";
             this.btnAddLog.UseVisualStyleBackColor = true;
             this.btnAddLog.Click += new System.EventHandler(this.btnAddLog_Click);
@@ -119,7 +120,7 @@
             this.txtItem.Location = new System.Drawing.Point(369, 6);
             this.txtItem.Name = "txtItem";
             this.txtItem.Size = new System.Drawing.Size(41, 26);
-            this.txtItem.TabIndex = 1;
+            this.txtItem.TabIndex = 2;
             this.txtItem.Text = "1";
             this.txtItem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtItem_KeyPress);
             this.txtItem.Leave += new System.EventHandler(this.txtPNumber_Leave);

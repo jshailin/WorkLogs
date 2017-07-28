@@ -16,14 +16,6 @@ namespace WorkLogsWin.UI
             InitializeComponent();
         }
 
-        private void menuAddLog_Click(object sender, EventArgs e)
-        {
-            FrmAddLog frmAddLog=FrmAddLog.Create();
-            frmAddLog.RefreshMain += LoadLogs;
-            frmAddLog.Tag = _logUser.ID;
-            frmAddLog.ShowDialog();
-            frmAddLog.Focus();
-        }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
@@ -100,6 +92,21 @@ namespace WorkLogsWin.UI
                 //托盘区图标隐藏 
                 notifyIcon1.Visible = false;
             }
+        }
+        private void menuAddLog_Click(object sender, EventArgs e)
+        {
+            FrmAddLog frmAddLog=FrmAddLog.Create();
+            frmAddLog.RefreshMain += LoadLogs;
+            frmAddLog.Tag = _logUser.ID;
+            frmAddLog.ShowDialog();
+ //           frmAddLog.Focus();
+        }
+
+        private void menuOpenAddressBook_Click(object sender, EventArgs e)
+        {
+            FrmAddressBook frmAddress = new FrmAddressBook();
+            frmAddress.Tag = _logUser.ID;
+            frmAddress.ShowDialog();
         }
 
     }
