@@ -106,7 +106,7 @@ namespace WorkLogsWin.UI
 
         private void menuOpenAddressBook_Click(object sender, EventArgs e)
         {
-            FrmAddressBook frmAddress = new FrmAddressBook();
+            FrmAddressBook frmAddress = FrmAddressBook.Create();
             frmAddress.Tag = _logUser.ID;
             frmAddress.ShowDialog();
         }

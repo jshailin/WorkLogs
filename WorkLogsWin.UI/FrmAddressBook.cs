@@ -16,17 +16,35 @@ namespace WorkLogsWin.UI
 {
     public partial class FrmAddressBook : Form
     {
-        public FrmAddressBook()
+        private FrmAddressBook()
         {
             InitializeComponent();
         }
 
         private AddressBookBll _addressBookBll = new AddressBookBll();
-
+        
+        #region 实现窗体的单例
+        private static FrmAddressBook _frm;
+        public static FrmAddressBook Create()
+        {
+            if (_frm == null)
+            {
+                _frm = new FrmAddressBook();
+            }
+            return _frm;
+        }
+        private void FrmAddressBook_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //与单例保持一致
+            //出现这种代码的原因：Form的close()会释放当前窗体对象
+            _frm = null;
+        } 
+        #endregion
 
         #region 列序的本地存储
         
         private string oldColumnsFile = "columns.dll";
+
         /// <summary>
         /// 保存列序
         /// </summary>
@@ -182,6 +200,8 @@ namespace WorkLogsWin.UI
             //保存列序
             SaveColumnOrder((DataGridView)sender);
         }
+
+        
 
 
 

@@ -341,6 +341,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmAddressBook";
             this.Text = "通讯录";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmAddressBook_FormClosing);
             this.Load += new System.EventHandler(this.FrmAddressBook_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).EndInit();
             this.groupBox3.ResumeLayout(false);
