@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,10 +22,52 @@ namespace WorkLogsWin.UI
         }
 
         private AddressBookBll _addressBookBll = new AddressBookBll();
+
+
+        #region 列序的本地存储
+        
+        private string oldColumnsFile = "columns.dll";
+        /// <summary>
+        /// 保存列序
+        /// </summary>
+        /// <param name="dgView"></param>
+        private void SaveColumnOrder(DataGridView dgView)
+        {
+            using (StreamWriter sw=new StreamWriter(oldColumnsFile,false))
+            {
+                foreach (DataGridViewColumn column in dgView.Columns)
+                {
+                    sw.WriteLine(column.DisplayIndex);
+                }
+            }
+        }
+        /// <summary>
+        /// 读取列序
+        /// </summary>
+        /// <param name="dgView"></param>
+        private void ReadColumnOrder(DataGridView dgView)
+        {
+            if (File.Exists(oldColumnsFile))
+            {
+                using (StreamReader sr = new StreamReader(oldColumnsFile, true))
+                {
+                    foreach (DataGridViewColumn column in dgView.Columns)
+                    {
+                        column.DisplayIndex = Convert.ToInt32(sr.ReadLine());
+                    }
+                } 
+            }
+        }
+
+        #endregion
+
+
         private void FrmAddressBook_Load(object sender, EventArgs e)
         {
             //加载通讯录
             LoadList();
+            //加载列序
+            ReadColumnOrder(dgvList);
         }
 
         private void LoadList()
@@ -93,16 +136,16 @@ namespace WorkLogsWin.UI
                 MessageBox.Show("请输入电话号码");
                 txtPhone1.Focus();
                 return;
-            } 
+            }
             //接收用户输入数据
             AddressBook address = new AddressBook()
             {
                 Name = txtName.Text,
                 Phone1 = txtPhone1.Text,
                 Phone2 = txtPhone2.Text,
-                Company=txtCompany.Text,
-                Email=txtEmail.Text,
-                Remark=txtRemark.Text
+                Company = txtCompany.Text,
+                Email = txtEmail.Text,
+                Remark = txtRemark.Text
             };
             if (txtId.Text.Equals("添加时无编号"))
             {
@@ -133,6 +176,13 @@ namespace WorkLogsWin.UI
             //恢复控件的值
             RestControls();
         }
+
+        private void dgvList_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            //保存列序
+            SaveColumnOrder((DataGridView)sender);
+        }
+
 
 
 
