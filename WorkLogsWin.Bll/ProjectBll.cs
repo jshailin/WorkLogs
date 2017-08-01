@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WorkLogsWin.Dal;
 using WorkLogsWin.Model;
 
@@ -28,6 +29,11 @@ namespace WorkLogsWin.Bll
 	    public bool Add(Project project)
 	    {
 	        return dal.Insert(project) > 0;
+	    }
+
+	    public List<Project> GetList(Dictionary<string, string> dic)
+	    {
+	        return dal.GetList(dic);
 	    }
 
 	    #endregion

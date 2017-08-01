@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WorkLogsWin.Bll;
 using WorkLogsWin.Common;
@@ -67,12 +61,16 @@ namespace WorkLogsWin.UI
         {
             if (File.Exists(oldColumnsFile))
             {
-                using (StreamReader sr = new StreamReader(oldColumnsFile, true))
+                //文件设置共享模式
+                using (FileStream fs=new FileStream(oldColumnsFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) 
                 {
-                    foreach (DataGridViewColumn column in dgView.Columns)
+                    using (StreamReader sr = new StreamReader(fs))
                     {
-                        column.DisplayIndex = Convert.ToInt32(sr.ReadLine());
-                    }
+                        foreach (DataGridViewColumn column in dgView.Columns)
+                        {
+                            column.DisplayIndex = Convert.ToInt32(sr.ReadLine());
+                        }
+                    } 
                 } 
             }
         }

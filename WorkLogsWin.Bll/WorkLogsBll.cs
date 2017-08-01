@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WorkLogsWin.Common;
 using WorkLogsWin.Dal;
 using WorkLogsWin.Model;
 

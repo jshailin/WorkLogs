@@ -1,4 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using MySql.Data.MySqlClient;
 using WorkLogsWin.Model;
 
 //Please add references
@@ -28,6 +31,52 @@ namespace WorkLogsWin.Dal
             };
 	        //执行并返回
 	        return (string)MySQLHelper.ExecuteScalar(sql, ps);
+	    }
+
+        /// <summary>
+        /// 查询到列表
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <returns></returns>
+	    public List<Project> GetList(Dictionary<string, string> dic)
+	    {
+            //构造查询sql语句
+            string sql = "SELECT ID, Pnumber, Item, Pname, CustomerID, CustomerName, Description, MProperty, DDepartment1, DDepartment2, Design1, Design2 FROM Project WHERE DelFlag=0 ";
+            //拼接查询条件
+            List<MySqlParameter> listP = new List<MySqlParameter>();
+            if (dic.Count > 0)
+            {
+                foreach (var pair in dic)
+                {
+                    //sql+=" AND "+pair.Key+" LIKE '%"+pair.Value+"%'";
+                    //写成参数化，防注入
+                    sql += " AND " + pair.Key + " LIKE @" + pair.Key;
+                    listP.Add(new MySqlParameter("@" + pair.Key, "%" + pair.Value + "%"));
+                }
+            }
+            //执行查询
+            DataTable dt = MySQLHelper.GetDataTable(sql, listP.ToArray());
+            //定义list，完成转存
+            List<Project> list = new List<Project>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(new Project()
+                {
+                    ID = Convert.ToInt32(row["ID"]),
+                    Pnumber = row["Pnumber"].ToString(),
+                    Item = Convert.ToInt32(row["Item"]),
+                    Pname = row["Pname"].ToString(),
+                    CustomerID = row["CustomerID"].ToString(),
+                    CustomerName = row["CustomerName"].ToString(),
+                    DDepartment1 = row["DDepartment1"].ToString(),
+                    DDepartment2 = row["DDepartment2"].ToString(),
+                    Description = row["Description"].ToString(),
+                    MProperty = row["MProperty"].ToString(),
+                    Design1 = row["Design1"].ToString(),
+                    Design2 = row["Design2"].ToString(),
+                });
+            }
+            return list;
 	    }
 
         /// <summary>

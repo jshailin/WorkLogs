@@ -34,13 +34,14 @@ namespace WorkLogsWin.UI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.menuAddLog = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOpenAddressBook = new System.Windows.Forms.ToolStripMenuItem();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.txtShow = new System.Windows.Forms.TextBox();
             this.txtPNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.menuOpenAddressBook = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuSearchProject = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +49,8 @@ namespace WorkLogsWin.UI
             // 
             this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAddLog,
-            this.menuOpenAddressBook});
+            this.menuOpenAddressBook,
+            this.menuSearchProject});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
             this.mnuMain.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
@@ -62,6 +64,13 @@ namespace WorkLogsWin.UI
             this.menuAddLog.Size = new System.Drawing.Size(65, 21);
             this.menuAddLog.Text = "写日志...";
             this.menuAddLog.Click += new System.EventHandler(this.menuAddLog_Click);
+            // 
+            // menuOpenAddressBook
+            // 
+            this.menuOpenAddressBook.Name = "menuOpenAddressBook";
+            this.menuOpenAddressBook.Size = new System.Drawing.Size(80, 21);
+            this.menuOpenAddressBook.Text = "打开通讯录";
+            this.menuOpenAddressBook.Click += new System.EventHandler(this.menuOpenAddressBook_Click);
             // 
             // dateTimePicker1
             // 
@@ -120,12 +129,12 @@ namespace WorkLogsWin.UI
             this.notifyIcon1.Text = "工作日志";
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // menuOpenAddressBook
+            // menuSearchProject
             // 
-            this.menuOpenAddressBook.Name = "menuOpenAddressBook";
-            this.menuOpenAddressBook.Size = new System.Drawing.Size(80, 21);
-            this.menuOpenAddressBook.Text = "打开通讯录";
-            this.menuOpenAddressBook.Click += new System.EventHandler(this.menuOpenAddressBook_Click);
+            this.menuSearchProject.Name = "menuSearchProject";
+            this.menuSearchProject.Size = new System.Drawing.Size(68, 21);
+            this.menuSearchProject.Text = "项目查询";
+            this.menuSearchProject.Click += new System.EventHandler(this.menuSearchProject_Click);
             // 
             // FrmMain
             // 
@@ -167,6 +176,7 @@ namespace WorkLogsWin.UI
         private System.Windows.Forms.ToolStripMenuItem menuAddLog;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem menuOpenAddressBook;
+        private System.Windows.Forms.ToolStripMenuItem menuSearchProject;
     }
 }
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using WorkLogsWin.Bll;
-using WorkLogsWin.Common;
 using WorkLogsWin.Model;
 
 namespace WorkLogsWin.UI
@@ -109,6 +108,12 @@ namespace WorkLogsWin.UI
             FrmAddressBook frmAddress = FrmAddressBook.Create();
             frmAddress.Tag = _logUser.ID;
             frmAddress.ShowDialog();
+        }
+
+        private void menuSearchProject_Click(object sender, EventArgs e)
+        {
+            FrmProject frmProject=FrmProject.Create();
+            frmProject.ShowDialog();
         }
 
     }
