@@ -19,7 +19,7 @@ namespace WorkLogsWin.UI
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            LoadLogs();
+            txtShow.Text = GetLogs(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd"), true);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace WorkLogsWin.UI
 
         private void LoadLogs()
         {
-            txtShow.Text = GetLogs(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd"), true);
+            txtShow.Text = GetLogs("", false);
         }
 
         /// <summary>
