@@ -57,7 +57,7 @@ namespace WorkLogsWin.UI
             list.Reverse(); //反转顺序，时间由近到远显示
             foreach (WorkLogs workLog in list)
             {
-                sb.AppendLine(workLog.CreateTime.ToString("yyyy年MM月dd日") + ":   " + workLog.Pnumber + "-" + workLog.Item);
+                sb.AppendLine(workLog.CreateTime.ToString("yyyy年MM月dd日") + ":   " + workLog.Pnumber + "-" + workLog.Item+" "+workLog.Pname);
                 sb.AppendLine(workLog.LogDesc);
                 sb.AppendLine();
             }
