@@ -10,7 +10,7 @@ namespace WorkLogsWin.Bll
 	/// </summary>
 	public partial class ProjectBll
 	{
-		private readonly ProjectDal dal=new ProjectDal();
+		private readonly ProjectDal _dal=new ProjectDal();
 
 	    #region 我的方法
 
@@ -22,18 +22,18 @@ namespace WorkLogsWin.Bll
 	    /// <returns>项目名称</returns>
 	    public string GetPNmameByPnumber(string pNumber,string strItem)
 	    {
-	        string pNmame = dal.GetPNmameByPnumber(pNumber,Convert.ToInt32(strItem));
+	        string pNmame = _dal.GetPNmameByPnumber(pNumber,Convert.ToInt32(strItem));
             return pNmame ?? "无此项目";
 	    }
 
 	    public bool Add(Project project)
 	    {
-	        return dal.Insert(project) > 0;
+	        return _dal.Insert(project) > 0;
 	    }
 
 	    public List<Project> GetList(Dictionary<string, string> dic)
 	    {
-	        return dal.GetList(dic);
+	        return _dal.GetList(dic);
 	    }
 
 	    #endregion

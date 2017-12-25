@@ -32,8 +32,8 @@ namespace WorkLogsWin.UI
             _frm = null;
         }
 
-        ProjectBll projectBll=new ProjectBll();
-        WorkLogsBll workLogsBll=new WorkLogsBll();
+        ProjectBll _projectBll=new ProjectBll();
+        WorkLogsBll _workLogsBll=new WorkLogsBll();
         private void FrmAddLog_Load(object sender, EventArgs e)
         {
             lblCreateDate.Text = DateTime.Now.ToString("yyyy年MM月dd日");
@@ -41,7 +41,7 @@ namespace WorkLogsWin.UI
         }
         private void txtPNumber_Leave(object sender, EventArgs e)
         {
-            txtPName.Text = projectBll.GetPNmameByPnumber(txtPNumber.Text,txtItem.Text);
+            txtPName.Text = _projectBll.GetPNmameByPnumber(txtPNumber.Text,txtItem.Text);
         }
 
         private void btnAddLog_Click(object sender, EventArgs e)
@@ -95,7 +95,7 @@ namespace WorkLogsWin.UI
                 workLogs.Pname = strPname;
             }
             workLogs.LogDesc = strLog;
-            workLogs.UID = (int)this.Tag;
+            workLogs.Uid = (int)this.Tag;
             workLogs.CreateTime = DateTime.Now;
             WorkLogs exixsWorkLog = GetWorkLogByDate_Pnum_Item(workLogs.CreateTime.ToString("yyyy-MM-dd"),
                 workLogs.Pnumber, workLogs.Item.ToString());
@@ -110,12 +110,12 @@ namespace WorkLogsWin.UI
                 }
                 else
                 {
-                    workLogs.ID = exixsWorkLog.ID;
-                    return workLogsBll.Edit(workLogs);
+                    workLogs.Id = exixsWorkLog.Id;
+                    return _workLogsBll.Edit(workLogs);
                 }
             }
             else
-                return workLogsBll.Add(workLogs);
+                return _workLogsBll.Add(workLogs);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace WorkLogsWin.UI
             dic.Add("Pnumber", pNum);
             dic.Add("Item", item);
             dic.Add("UID",((int)this.Tag).ToString());
-            return workLogsBll.GetList(dic).Count>0?workLogsBll.GetList(dic)[0]:null;
+            return _workLogsBll.GetList(dic).Count>0?_workLogsBll.GetList(dic)[0]:null;
         }
     }
 }

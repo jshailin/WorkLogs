@@ -50,7 +50,7 @@ namespace WorkLogsWin.UI
             //定义键值对，存放查询条件
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add(byDate ? "CreateTime" : "Pnumber", strCondition);
-            dic.Add("UID",_logUser.ID.ToString());
+            dic.Add("UID",_logUser.Id.ToString());
             List<WorkLogs> list = _workLogsBll.GetList(dic);
             if (list.Count <= 0) return "未找到";
             StringBuilder sb = new StringBuilder();
@@ -98,7 +98,7 @@ namespace WorkLogsWin.UI
         {
             FrmAddLog frmAddLog=FrmAddLog.Create();
             frmAddLog.RefreshMain += LoadLogs;
-            frmAddLog.Tag = _logUser.ID;
+            frmAddLog.Tag = _logUser.Id;
             frmAddLog.ShowDialog();
  //           frmAddLog.Focus();
         }
@@ -106,7 +106,7 @@ namespace WorkLogsWin.UI
         private void menuOpenAddressBook_Click(object sender, EventArgs e)
         {
             FrmAddressBook frmAddress = FrmAddressBook.Create();
-            frmAddress.Tag = _logUser.ID;
+            frmAddress.Tag = _logUser.Id;
             frmAddress.ShowDialog();
         }
 

@@ -30,7 +30,7 @@ namespace WorkLogsWin.Dal
                 new MySqlParameter("@Item",item), 
             };
 	        //执行并返回
-	        return (string)MySQLHelper.ExecuteScalar(sql, ps);
+	        return (string)MySqlHelper.ExecuteScalar(sql, ps);
 	    }
 
         /// <summary>
@@ -55,18 +55,18 @@ namespace WorkLogsWin.Dal
                 }
             }
             //执行查询
-            DataTable dt = MySQLHelper.GetDataTable(sql, listP.ToArray());
+            DataTable dt = MySqlHelper.GetDataTable(sql, listP.ToArray());
             //定义list，完成转存
             List<Project> list = new List<Project>();
             foreach (DataRow row in dt.Rows)
             {
                 list.Add(new Project()
                 {
-                    ID = Convert.ToInt32(row["ID"]),
+                    Id = Convert.ToInt32(row["ID"]),
                     Pnumber = row["Pnumber"].ToString(),
                     Item = Convert.ToInt32(row["Item"]),
                     Pname = row["Pname"].ToString(),
-                    CustomerID = row["CustomerID"].ToString(),
+                    CustomerId = row["CustomerID"].ToString(),
                     CustomerName = row["CustomerName"].ToString(),
                     DDepartment1 = row["DDepartment1"].ToString(),
                     DDepartment2 = row["DDepartment2"].ToString(),
@@ -94,7 +94,7 @@ namespace WorkLogsWin.Dal
 	            new MySqlParameter("@Pnumber", project.Pnumber),
 	            new MySqlParameter("@Item", project.Item),
 	            new MySqlParameter("@Pname", project.Pname),
-                new MySqlParameter("@CustomerID",project.CustomerID),
+                new MySqlParameter("@CustomerID",project.CustomerId),
                 new MySqlParameter("@CustomerName",project.CustomerName),
                 new MySqlParameter("@Description",project.Description),
                 new MySqlParameter("@MProperty",project.MProperty),
@@ -104,7 +104,7 @@ namespace WorkLogsWin.Dal
                 new MySqlParameter("@Design2",project.Design2), 
 	        };
             //执行插入操作
-            return MySQLHelper.ExecuteNonQuery(sql, ps);
+            return MySqlHelper.ExecuteNonQuery(sql, ps);
 	    }
 
 	    #endregion

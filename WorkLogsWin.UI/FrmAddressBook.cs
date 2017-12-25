@@ -37,7 +37,7 @@ namespace WorkLogsWin.UI
 
         #region 列序的本地存储
         
-        private string oldColumnsFile = "columns.dll";
+        private string _oldColumnsFile = "columns.dll";
 
         /// <summary>
         /// 保存列序
@@ -45,7 +45,7 @@ namespace WorkLogsWin.UI
         /// <param name="dgView"></param>
         private void SaveColumnOrder(DataGridView dgView)
         {
-            using (StreamWriter sw=new StreamWriter(oldColumnsFile,false))
+            using (StreamWriter sw=new StreamWriter(_oldColumnsFile,false))
             {
                 foreach (DataGridViewColumn column in dgView.Columns)
                 {
@@ -59,10 +59,10 @@ namespace WorkLogsWin.UI
         /// <param name="dgView"></param>
         private void ReadColumnOrder(DataGridView dgView)
         {
-            if (File.Exists(oldColumnsFile))
+            if (File.Exists(_oldColumnsFile))
             {
                 //文件设置共享模式
-                using (FileStream fs=new FileStream(oldColumnsFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) 
+                using (FileStream fs=new FileStream(_oldColumnsFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) 
                 {
                     using (StreamReader sr = new StreamReader(fs))
                     {
@@ -178,7 +178,7 @@ namespace WorkLogsWin.UI
             else
             {
                 //修改操作
-                address.ID = int.Parse(txtId.Text);
+                address.Id = int.Parse(txtId.Text);
                 if (_addressBookBll.Edit(address))
                 {
                     LoadList();

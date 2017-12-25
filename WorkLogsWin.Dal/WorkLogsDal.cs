@@ -28,12 +28,12 @@ namespace WorkLogsWin.Dal
 	            new MySqlParameter("@Pnumber",workLog.Pnumber),
 	            new MySqlParameter("@Item",workLog.Item),
 	            new MySqlParameter("@Pname",workLog.Pname),
-	            new MySqlParameter("@UID",workLog.UID),
+	            new MySqlParameter("@UID",workLog.Uid),
 	            new MySqlParameter("@CreateTime",workLog.CreateTime),
 	            new MySqlParameter("@LogDesc",workLog.LogDesc)
 	        };
             //执行插入操作
-            return MySQLHelper.ExecuteNonQuery(sql, ps);
+            return MySqlHelper.ExecuteNonQuery(sql, ps);
         }
 
 	    /// <summary>
@@ -50,13 +50,13 @@ namespace WorkLogsWin.Dal
                 new MySqlParameter("@Pnumber",workLog.Pnumber),
 	            new MySqlParameter("@Item",workLog.Item),
 	            new MySqlParameter("@Pname",workLog.Pname),
-	            new MySqlParameter("@UID",workLog.UID),
+	            new MySqlParameter("@UID",workLog.Uid),
 	            new MySqlParameter("@CreateTime",workLog.CreateTime),
 	            new MySqlParameter("@LogDesc",workLog.LogDesc) ,
-                new MySqlParameter("@ID",workLog.ID), 
+                new MySqlParameter("@ID",workLog.Id), 
             };
             //执行并返回
-            return MySQLHelper.ExecuteNonQuery(sql, ps);
+            return MySqlHelper.ExecuteNonQuery(sql, ps);
         }
 
 	    /// <summary>
@@ -82,18 +82,18 @@ namespace WorkLogsWin.Dal
 	            }
 	        }
 	        //执行查询
-	        DataTable dt=MySQLHelper.GetDataTable(sql,listP.ToArray());
+	        DataTable dt=MySqlHelper.GetDataTable(sql,listP.ToArray());
             //定义list，完成转存
             List<WorkLogs> list=new List<WorkLogs>();
             foreach (DataRow row in dt.Rows)
             {
                 list.Add(new WorkLogs()
                 {
-                    ID=Convert.ToInt32(row["ID"]),
+                    Id=Convert.ToInt32(row["ID"]),
                     Pnumber=row["Pnumber"].ToString(),
                     Item=Convert.ToInt32(row["Item"]),
                     Pname=row["Pname"].ToString(),
-                    UID=Convert.ToInt32(row["UID"]),
+                    Uid=Convert.ToInt32(row["UID"]),
                     CreateTime = Convert.ToDateTime(row["CreateTime"]),
                     LogDesc=row["LogDesc"].ToString()
                 });

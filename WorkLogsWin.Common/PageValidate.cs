@@ -11,18 +11,18 @@ namespace WorkLogsWin.Common
 	/// </summary>
 	public class PageValidate
 	{
-        private static Regex RegPhone = new Regex("^[0-9]+[-]?[0-9]+[-]?[0-9]$");
-		private static Regex RegNumber = new Regex("^[0-9]+$");
-		private static Regex RegNumberSign = new Regex("^[+-]?[0-9]+$");
-		private static Regex RegDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
-		private static Regex RegDecimalSign = new Regex("^[+-]?[0-9]+[.]?[0-9]+$"); //等价于^[+-]?\d+[.]?\d+$
-		private static Regex RegEmail = new Regex("^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$");//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样 
-		private static Regex RegCHZN = new Regex("[\u4e00-\u9fa5]");
+        private static Regex _regPhone = new Regex("^[0-9]+[-]?[0-9]+[-]?[0-9]$");
+		private static Regex _regNumber = new Regex("^[0-9]+$");
+		private static Regex _regNumberSign = new Regex("^[+-]?[0-9]+$");
+		private static Regex _regDecimal = new Regex("^[0-9]+[.]?[0-9]+$");
+		private static Regex _regDecimalSign = new Regex("^[+-]?[0-9]+[.]?[0-9]+$"); //等价于^[+-]?\d+[.]?\d+$
+		private static Regex _regEmail = new Regex("^[\\w-]+@[\\w-]+\\.(com|net|org|edu|mil|tv|biz|info)$");//w 英文字母或数字的字符串，和 [a-zA-Z0-9] 语法一样 
+		private static Regex _regChzn = new Regex("[\u4e00-\u9fa5]");
 
 	    #region 数字字符串检查		
         public static bool IsPhone(string inputData)
         {
-            Match m = RegPhone.Match(inputData);
+            Match m = _regPhone.Match(inputData);
             return m.Success;
         }
 		
@@ -33,7 +33,7 @@ namespace WorkLogsWin.Common
 		/// <returns></returns>
 		public static bool IsNumber(string inputData)
 		{
-			Match m = RegNumber.Match(inputData);
+			Match m = _regNumber.Match(inputData);
 			return m.Success;
 		}
 
@@ -44,7 +44,7 @@ namespace WorkLogsWin.Common
 		/// <returns></returns>
 		public static bool IsNumberSign(string inputData)
 		{
-			Match m = RegNumberSign.Match(inputData);
+			Match m = _regNumberSign.Match(inputData);
 			return m.Success;
 		}		
 		/// <summary>
@@ -54,7 +54,7 @@ namespace WorkLogsWin.Common
 		/// <returns></returns>
 		public static bool IsDecimal(string inputData)
 		{
-			Match m = RegDecimal.Match(inputData);
+			Match m = _regDecimal.Match(inputData);
 			return m.Success;
 		}		
 		/// <summary>
@@ -64,7 +64,7 @@ namespace WorkLogsWin.Common
 		/// <returns></returns>
 		public static bool IsDecimalSign(string inputData)
 		{
-			Match m = RegDecimalSign.Match(inputData);
+			Match m = _regDecimalSign.Match(inputData);
 			return m.Success;
 		}		
 
@@ -77,9 +77,9 @@ namespace WorkLogsWin.Common
 		/// </summary>
 		/// <param name="inputData"></param>
 		/// <returns></returns>
-		public static bool IsHasCHZN(string inputData)
+		public static bool IsHasChzn(string inputData)
 		{
-			Match m = RegCHZN.Match(inputData);
+			Match m = _regChzn.Match(inputData);
 			return m.Success;
 		}	
 
@@ -93,7 +93,7 @@ namespace WorkLogsWin.Common
 		/// <returns></returns>
 		public static bool IsEmail(string inputData)
 		{
-			Match m = RegEmail.Match(inputData);
+			Match m = _regEmail.Match(inputData);
 			return m.Success;
 		}		
 
@@ -240,17 +240,17 @@ namespace WorkLogsWin.Common
 		#endregion
 
         #region 是否由特定字符组成
-        public static bool isContainSameChar(string strInput)
+        public static bool IsContainSameChar(string strInput)
         {
             string charInput = string.Empty;
             if (!string.IsNullOrEmpty(strInput))
             {
                 charInput = strInput.Substring(0, 1);
             }
-            return isContainSameChar(strInput, charInput, strInput.Length);
+            return IsContainSameChar(strInput, charInput, strInput.Length);
         }
 
-        public static bool isContainSameChar(string strInput, string charInput, int lenInput)
+        public static bool IsContainSameChar(string strInput, string charInput, int lenInput)
         {
             if (string.IsNullOrEmpty(charInput))
             {
@@ -258,9 +258,9 @@ namespace WorkLogsWin.Common
             }
             else
             {
-                Regex RegNumber = new Regex(string.Format("^([{0}])+$", charInput));
+                Regex regNumber = new Regex(string.Format("^([{0}])+$", charInput));
                 //Regex RegNumber = new Regex(string.Format("^([{0}]{{1}})+$", charInput,lenInput));
-                Match m = RegNumber.Match(strInput);
+                Match m = regNumber.Match(strInput);
                 return m.Success;
             }
         }
@@ -270,7 +270,7 @@ namespace WorkLogsWin.Common
         /// <summary>
         /// 检查输入的参数是不是某些定义好的特殊字符：这个方法目前用于密码输入的安全检查
         /// </summary>
-        public static bool isContainSpecChar(string strInput)
+        public static bool IsContainSpecChar(string strInput)
         {
             string[] list = new string[] { "123456", "654321" };
             bool result = new bool();

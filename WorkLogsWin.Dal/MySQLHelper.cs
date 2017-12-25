@@ -8,16 +8,16 @@ namespace WorkLogsWin.Dal
     /// <summary>
     /// 数据访问抽象基础类
     /// </summary>
-    public abstract class MySQLHelper
+    public abstract class MySqlHelper
     {
         //数据库连接字符串(web.config来配置)，可以动态更改connectionString支持多数据库.	
-	    public static string connStr =null ;
+	    public static string ConnStr;
 
-        static MySQLHelper()
+        static MySqlHelper()
         {
             using (StreamReader sr=new StreamReader(@"d:\sever", Encoding.Default))
             {
-                connStr = sr.ReadLine();
+                ConnStr = sr.ReadLine();
             }
         }
 
@@ -33,7 +33,7 @@ namespace WorkLogsWin.Dal
         public static int ExecuteNonQuery(string sql, params MySqlParameter[] ps)
         {
             //创建连接对象
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            using (MySqlConnection conn = new MySqlConnection(ConnStr))
             {
                 //创建命令对象
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -55,7 +55,7 @@ namespace WorkLogsWin.Dal
 
         public static object ExecuteScalar(string sql, params MySqlParameter[] ps)
         {
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            using (MySqlConnection conn = new MySqlConnection(ConnStr))
             {
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddRange(ps);
@@ -75,7 +75,7 @@ namespace WorkLogsWin.Dal
 
         public static DataTable GetDataTable(string sql, params MySqlParameter[] ps)
         {
-            using (MySqlConnection conn = new MySqlConnection(connStr))
+            using (MySqlConnection conn = new MySqlConnection(ConnStr))
             {
                 //构造适配器对象
                 MySqlDataAdapter adapter = new MySqlDataAdapter(sql, conn);

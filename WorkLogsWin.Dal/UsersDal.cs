@@ -25,14 +25,14 @@ namespace WorkLogsWin.Dal
             string sql = "SELECT ID, UName, UPwd FROM Users WHERE DelFlag=0 AND UName=@UName";
             MySqlParameter p = new MySqlParameter("@UName", name);
             //使用helper进行查询,得到结果
-            DataTable dt = MySQLHelper.GetDataTable(sql, p);
+            DataTable dt = MySqlHelper.GetDataTable(sql, p);
             //判断是否查找到了
             if (dt.Rows.Count > 0)
             {
                 //用户名是存在的
                 user = new Users()
                 {
-                    ID = int.Parse(dt.Rows[0]["ID"].ToString()),
+                    Id = int.Parse(dt.Rows[0]["ID"].ToString()),
                     UName = name,
                     UPwd = dt.Rows[0]["UPwd"].ToString(),
                     

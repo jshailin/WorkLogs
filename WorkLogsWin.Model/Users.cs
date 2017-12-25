@@ -17,7 +17,7 @@ namespace WorkLogsWin.Model
 		/// <summary>
 		/// auto_increment
 		/// </summary>
-		public int ID
+		public int Id
 		{
 			set{ _id=value;}
 			get{return _id;}

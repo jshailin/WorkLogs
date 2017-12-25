@@ -8,7 +8,7 @@ namespace WorkLogsWin.Bll
 	/// </summary>
 	public partial class UsersBll
 	{
-		private readonly UsersDal dal=new UsersDal();
+		private readonly UsersDal _dal=new UsersDal();
 
 	    #region 我的方法
 
@@ -19,7 +19,7 @@ namespace WorkLogsWin.Bll
 	    /// <returns></returns>
 	    public Users GetByName(string name)
 	    {
-	        return dal.GetByName(name);
+	        return _dal.GetByName(name);
 	    }
 	    
 

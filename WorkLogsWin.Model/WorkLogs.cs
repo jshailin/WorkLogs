@@ -20,7 +20,7 @@ namespace WorkLogsWin.Model
 		/// <summary>
 		/// auto_increment
 		/// </summary>
-		public int ID
+		public int Id
 		{
 			set{ _id=value;}
 			get{return _id;}
@@ -52,7 +52,7 @@ namespace WorkLogsWin.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int UID
+		public int Uid
 		{
 			set{ _uid=value;}
 			get{return _uid;}

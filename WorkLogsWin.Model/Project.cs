@@ -25,7 +25,7 @@ namespace WorkLogsWin.Model
 		/// <summary>
 		/// auto_increment
 		/// </summary>
-		public int ID
+		public int Id
 		{
 			set{ _id=value;}
 			get{return _id;}
@@ -57,7 +57,7 @@ namespace WorkLogsWin.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public string CustomerID
+		public string CustomerId
 		{
 			set{ _customerid=value;}
 			get{return _customerid;}

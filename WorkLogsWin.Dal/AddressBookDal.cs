@@ -31,7 +31,7 @@ namespace WorkLogsWin.Dal
                 new MySqlParameter("@Remark",address.Remark)
             };
             //执行插入操作
-            return MySQLHelper.ExecuteNonQuery(sql, ps);
+            return MySqlHelper.ExecuteNonQuery(sql, ps);
         }
 
         /// <summary>
@@ -51,10 +51,10 @@ namespace WorkLogsWin.Dal
                 new MySqlParameter("@Email",address.Email),
                 new MySqlParameter("@Company",address.Company),
                 new MySqlParameter("@Remark",address.Remark) ,
-                new MySqlParameter("@ID",address.ID), 
+                new MySqlParameter("@ID",address.Id), 
             };
             //执行并返回
-            return MySQLHelper.ExecuteNonQuery(sql, ps);
+            return MySqlHelper.ExecuteNonQuery(sql, ps);
         }
 
         public List<AddressBook> GetList(Dictionary<string, string> dic)
@@ -74,14 +74,14 @@ namespace WorkLogsWin.Dal
                 }
             }
             //执行查询
-            DataTable dt = MySQLHelper.GetDataTable(sql, listP.ToArray());
+            DataTable dt = MySqlHelper.GetDataTable(sql, listP.ToArray());
             //定义list，完成转存
             List<AddressBook> list = new List<AddressBook>();
             foreach (DataRow row in dt.Rows)
             {
                 list.Add(new AddressBook()
                 {
-                    ID = Convert.ToInt32(row["ID"]),
+                    Id = Convert.ToInt32(row["ID"]),
                     Name = row["Name"].ToString(),
                     Phone1 = row["Phone1"].ToString(),
                     Phone2 = row["Phone2"].ToString(),

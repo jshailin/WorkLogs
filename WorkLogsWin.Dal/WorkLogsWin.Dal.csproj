@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddressBookDal.cs" />
-    <Compile Include="CommandInfo.cs" />
     <Compile Include="MySQLHelper.cs" />
     <Compile Include="ProjectDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

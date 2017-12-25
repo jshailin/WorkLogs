@@ -17,9 +17,9 @@ namespace WorkLogsWin.Common
     /// </summary>
     public class BindingCollection<T> : BindingList<T>
     {
-        private bool isSorted;
-        private PropertyDescriptor sortProperty;
-        private ListSortDirection sortDirection;
+        private bool _isSorted;
+        private PropertyDescriptor _sortProperty;
+        private ListSortDirection _sortDirection;
 
         /// <summary>
         /// 构造函数
@@ -51,15 +51,15 @@ namespace WorkLogsWin.Common
             {
                 ObjectPropertyCompare<T> pc = new ObjectPropertyCompare<T>(property, direction);
                 items.Sort(pc);
-                isSorted = true;
+                _isSorted = true;
             }
             else
             {
-                isSorted = false;
+                _isSorted = false;
             }
 
-            sortProperty = property;
-            sortDirection = direction;
+            _sortProperty = property;
+            _sortDirection = direction;
 
             this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
@@ -71,7 +71,7 @@ namespace WorkLogsWin.Common
         {
             get
             {
-                return isSorted;
+                return _isSorted;
             }
         }
 
@@ -93,7 +93,7 @@ namespace WorkLogsWin.Common
         {
             get
             {
-                return sortDirection;
+                return _sortDirection;
             }
         }
 
@@ -104,7 +104,7 @@ namespace WorkLogsWin.Common
         {
             get
             {
-                return sortProperty;
+                return _sortProperty;
             }
         }
 
@@ -113,28 +113,28 @@ namespace WorkLogsWin.Common
         /// </summary>
         protected override void RemoveSortCore()
         {
-            isSorted = false;
+            _isSorted = false;
             this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
     }
 
     public class ObjectPropertyCompare<T> : IComparer<T>
     {
-        private PropertyDescriptor property;
-        private ListSortDirection direction;
+        private PropertyDescriptor _property;
+        private ListSortDirection _direction;
 
         // 构造函数
         public ObjectPropertyCompare(PropertyDescriptor property, ListSortDirection direction)
         {
-            this.property = property;
-            this.direction = direction;
+            this._property = property;
+            this._direction = direction;
         }
 
         // 实现IComparer中方法
         public int Compare(T x, T y)
         {
-            object xValue = x.GetType().GetProperty(property.Name).GetValue(x, null);
-            object yValue = y.GetType().GetProperty(property.Name).GetValue(y, null);
+            object xValue = x.GetType().GetProperty(_property.Name).GetValue(x, null);
+            object yValue = y.GetType().GetProperty(_property.Name).GetValue(y, null);
 
             int returnValue;
 
@@ -151,7 +151,7 @@ namespace WorkLogsWin.Common
                 returnValue = xValue.ToString().CompareTo(yValue.ToString());
             }
 
-            if (direction == ListSortDirection.Ascending)
+            if (_direction == ListSortDirection.Ascending)
             {
                 return returnValue;
             }

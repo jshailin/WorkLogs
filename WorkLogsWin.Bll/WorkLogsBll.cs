@@ -9,23 +9,23 @@ namespace WorkLogsWin.Bll
 	/// </summary>
 	public partial class WorkLogsBll
 	{
-		private readonly WorkLogsDal dal=new WorkLogsDal();
+		private readonly WorkLogsDal _dal=new WorkLogsDal();
 
 	    #region 我的方法
 
 	    public bool Add(WorkLogs workLog)
 	    {
-	        return dal.Insert(workLog) > 0;
+	        return _dal.Insert(workLog) > 0;
 	    }
 
 	    public bool Edit(WorkLogs workLog)
 	    {
-	        return dal.Update(workLog) > 0;
+	        return _dal.Update(workLog) > 0;
 	    }
 
 	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
-	        return dal.GetList(dic);
+	        return _dal.GetList(dic);
 	    } 
         
 

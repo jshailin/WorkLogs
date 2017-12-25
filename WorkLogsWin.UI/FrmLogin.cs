@@ -14,7 +14,7 @@ namespace WorkLogsWin.UI
             InitializeComponent();
         }
 
-        private string oldUsersFile = "user.dll";
+        private string _oldUsersFile = "user.dll";
         private void btnLogin_Click(object sender, EventArgs e)
         {
             //获取用户输入的信息
@@ -54,7 +54,7 @@ namespace WorkLogsWin.UI
         {
             if (!txtName.AutoCompleteCustomSource.Contains(txtName.Text))
             {
-                using (StreamWriter sw = new StreamWriter(oldUsersFile, true))
+                using (StreamWriter sw = new StreamWriter(_oldUsersFile, true))
                 {
                     sw.WriteLine(txtName.Text);
                 }
@@ -66,9 +66,9 @@ namespace WorkLogsWin.UI
         /// </summary>
         private void ReadUserName()
         {
-            if (File.Exists(oldUsersFile))
+            if (File.Exists(_oldUsersFile))
             {
-                using (StreamReader sr = new StreamReader(oldUsersFile, true))
+                using (StreamReader sr = new StreamReader(_oldUsersFile, true))
                 {
                     string str = sr.ReadLine();
                     while (str != null)
