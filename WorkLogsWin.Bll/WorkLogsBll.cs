@@ -26,8 +26,12 @@ namespace WorkLogsWin.Bll
 	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
 	        return _dal.GetList(dic);
-	    } 
-        
+	    }
+
+        public List<WorkLogs> GetListByDays(string days, Dictionary<string, string> dic)
+        {
+            return _dal.GetListByDays(days ,dic);
+        }
 
 	    #endregion
 

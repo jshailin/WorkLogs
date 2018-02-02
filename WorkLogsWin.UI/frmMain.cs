@@ -19,12 +19,12 @@ namespace WorkLogsWin.UI
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            txtShow.Text = GetLogs(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd"), true);
+            txtShow.Text = QueryLogs(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd"), true);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            txtShow.Text = GetLogs(txtPNumber.Text, false);
+            txtShow.Text = QueryLogs(txtPNumber.Text, false);
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace WorkLogsWin.UI
 
         private void LoadLogs()
         {
-            txtShow.Text = GetLogs("", false);
+            txtShow.Text = GetLogs();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace WorkLogsWin.UI
         /// <param name="strCondition">条件字符</param>
         /// <param name="byDate">1--日期查询，0--按订单查询</param>
         /// <returns></returns>
-        private string GetLogs(string strCondition, bool byDate)
+        private string QueryLogs(string strCondition, bool byDate)
         {
             //定义键值对，存放查询条件
             Dictionary<string, string> dic = new Dictionary<string, string>();
@@ -58,6 +58,28 @@ namespace WorkLogsWin.UI
             foreach (WorkLogs workLog in list)
             {
                 sb.AppendLine(workLog.CreateTime.ToString("yyyy年MM月dd日") + ":   " + workLog.Pnumber + "-" + workLog.Item+" "+workLog.Pname);
+                sb.AppendLine(workLog.LogDesc);
+                sb.AppendLine();
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// 列出60天的日志内容
+        /// </summary>
+        /// <returns></returns>
+        private string GetLogs()
+        {
+            //定义键值对，存放查询条件
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            dic.Add("UID", _logUser.Id.ToString());
+            List<WorkLogs> list = _workLogsBll.GetListByDays("60",dic);
+            if (list.Count <= 0) return "未找到";
+            StringBuilder sb = new StringBuilder();
+            list.Reverse(); //反转顺序，时间由近到远显示
+            foreach (WorkLogs workLog in list)
+            {
+                sb.AppendLine(workLog.CreateTime.ToString("yyyy年MM月dd日") + ":   " + workLog.Pnumber + "-" + workLog.Item + " " + workLog.Pname);
                 sb.AppendLine(workLog.LogDesc);
                 sb.AppendLine();
             }

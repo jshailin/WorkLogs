@@ -68,7 +68,7 @@ namespace WorkLogsWin.Dal
 	    public List<WorkLogs> GetList(Dictionary<string, string> dic)
 	    {
 	        //构造查询sql语句
-	        string sql = "SELECT ID, Pnumber, Item, Pname, UID, CreateTime, LogDesc FROM WorkLogs WHERE DelFlag=0 ";
+            string sql = "SELECT ID, Pnumber, Item, Pname, UID, CreateTime, LogDesc FROM WorkLogs WHERE DelFlag=0 ";
 	        //拼接查询条件
 	        List<MySqlParameter> listP=new List<MySqlParameter>();
 	        if (dic.Count>0)
@@ -99,6 +99,48 @@ namespace WorkLogsWin.Dal
                 });
             }
             return list;
+	    }
+	   
+        /// <summary>
+        /// 查询指定天数内的列表
+        /// </summary>
+        /// <param name="days"></param>
+        /// <param name="dic"></param>
+        /// <returns></returns>
+	    public List<WorkLogs> GetListByDays(string days,Dictionary<string, string> dic)
+	    {
+	        //构造查询sql语句
+	        string sql = "SELECT ID, Pnumber, Item, Pname, UID, CreateTime, LogDesc FROM WorkLogs WHERE DelFlag=0 AND DATE_SUB(CURDATE(), INTERVAL "+days+" DAY) <= date(CreateTime) ";
+	        //拼接查询条件
+	        List<MySqlParameter> listP = new List<MySqlParameter>();
+	        if (dic.Count > 0)
+	        {
+	            foreach (var pair in dic)
+	            {
+	                //sql+=" AND "+pair.Key+" LIKE '%"+pair.Value+"%'";
+	                //写成参数化，防注入
+	                sql += " AND " + pair.Key + " LIKE @" + pair.Key;
+	                listP.Add(new MySqlParameter("@" + pair.Key, "%" + pair.Value + "%"));
+	            }
+	        }
+	        //执行查询
+	        DataTable dt = MySqlHelper.GetDataTable(sql, listP.ToArray());
+	        //定义list，完成转存
+	        List<WorkLogs> list = new List<WorkLogs>();
+	        foreach (DataRow row in dt.Rows)
+	        {
+	            list.Add(new WorkLogs()
+	            {
+	                Id = Convert.ToInt32(row["ID"]),
+	                Pnumber = row["Pnumber"].ToString(),
+	                Item = Convert.ToInt32(row["Item"]),
+	                Pname = row["Pname"].ToString(),
+	                Uid = Convert.ToInt32(row["UID"]),
+	                CreateTime = Convert.ToDateTime(row["CreateTime"]),
+	                LogDesc = row["LogDesc"].ToString()
+	            });
+	        }
+	        return list;
 	    }
 
 	    #endregion
